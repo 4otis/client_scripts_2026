@@ -1,4 +1,5 @@
-const API_BASE = "http://localhost:3333";
+const API_BASE = "http://localhost:3333"
+// const API_BASE = "jsonplaceholder.typicode.com"
 
 const loadBtn = document.getElementById("load-btn");
 const createBtn = document.getElementById("create-btn");
@@ -43,9 +44,9 @@ async function loadPosts() {
             postsList.appendChild(card);
         }
 
-        showMessage(`Загружено ${posts.length} публикаций.`, "success");
+        showMessage(`(status-code=200) Загружено ${posts.length} публикаций.`, "success");
     } catch (error) {
-        showMessage(`Ошибка загрузки: ${error.message}`, "error");
+        showMessage(`(status-code=404) Ошибка загрузки: ${error.message}`, "error");
     } finally {
         loadBtn.disabled = false;
     }
@@ -99,7 +100,7 @@ async function createPost() {
 
         postsList.prepend(card);
     } catch (error) {
-        showMessage(`Ошибка отправки: ${error.message}`, "error");
+        showMessage(`(status-code=500)Ошибка отправки: ${error.message}`, "error");
     } finally {
         createBtn.disabled = false;
     }
