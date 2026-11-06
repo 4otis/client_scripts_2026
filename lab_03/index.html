@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа 3 — Асинхронный JavaScript и REST API</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <h1>Доска публикаций</h1>
+
+    <button id="load-btn">Загрузить публикации</button>
+
+    <section id="posts-section">
+        <h2>Публикации</h2>
+        <div id="posts-list"></div>
+    </section>
+
+    <section id="create-section">
+        <h2>Создать публикацию</h2>
+        <form id="create-form">
+            <label for="title">Заголовок:</label>
+            <input type="text" id="title" name="title">
+
+            <label for="body">Текст:</label>
+            <textarea id="body" name="body" rows="4"></textarea>
+
+            <button type="submit" id="create-btn">Создать публикацию</button>
+        </form>
+    </section>
+
+    <section id="messages-section">
+        <h2>Сообщения</h2>
+        <p id="message-area"></p>
+    </section>
+</body>
+</html>
