@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Справочник пользователей</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+</head>
+<body>
+    <h1>Справочник пользователей</h1>
+
+    <button id="load-btn">Загрузить пользователей</button>
+
+    <section id="search-section">
+        <label for="search-input">Поиск по имени:</label>
+        <input type="text" id="search-input" placeholder="Введите имя пользователя" disabled>
+    </section>
+
+    <section id="users-section">
+        <h2>Пользователи</h2>
+        <div id="users-list"></div>
+    </section>
+
+    <section id="posts-section">
+        <h2>Публикации пользователя</h2>
+        <div id="posts-list"></div>
+    </section>
+
+    <section id="messages-section">
+        <h2>Сообщения</h2>
+        <p id="message-area"></p>
+    </section>
+</body>
+</html>
