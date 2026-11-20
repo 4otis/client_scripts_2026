@@ -22,11 +22,13 @@ async function loadUsers() {
     showMessage("Загрузка пользователей...", "loading");
 
     try {
-        const response = await fetch(`${API_BASE}/users`);
+        const response = await fetch(`${API_BASE}/users`, { signal: AbortSignal.timeout(5000) });
 
         if (!response.ok) {
             throw new Error(`HTTP-ошибка: ${response.status} ${response.statusText}`);
         }
+
+        showMessage(`(${response.status} ${response.statusText}) Загружаем пользователей...`, "loading");
 
         allUsers = await response.json();
 
@@ -35,9 +37,20 @@ async function loadUsers() {
         searchInput.value = "";
         renderUsers(allUsers);
 
-        showMessage(`Загружено ${allUsers.length} пользователей.`, "success");
+        showMessage(`(${response.status} ${response.statusText}) Загружено ${allUsers.length} пользователей.`, "success");
     } catch (error) {
-        showMessage(`Ошибка загрузки: ${error.message}`, "error");
+        let code = "";
+        if (error.name === "TimeoutError") {
+            code = "(500)";
+        } else if (error.message.includes("HTTP-ошибка")) {
+            const match = error.message.match(/\d+/);
+            if (match) {
+                code = `(${match[0]})`;
+            }
+        } else {
+            code = "(500)";
+        }
+        showMessage(`Ошибка загрузки: ${code} ${error.message}`, "error");
     } finally {
         loadBtn.disabled = false;
         searchInput.disabled = false;
@@ -100,7 +113,7 @@ async function loadPosts(userId) {
     postsList.innerHTML = "<p class=\"loading\">Загрузка публикаций...</p>";
 
     try {
-        const response = await fetch(`${API_BASE}/posts?userId=${userId}`);
+        const response = await fetch(`${API_BASE}/posts?userId=${userId}`, { signal: AbortSignal.timeout(5000) });
 
         if (!response.ok) {
             throw new Error(`HTTP-ошибка: ${response.status} ${response.statusText}`);
@@ -129,9 +142,22 @@ async function loadPosts(userId) {
 
         if (firstThree.length === 0) {
             postsList.textContent = "Публикации не найдены";
+        } else {
+            showMessage(`(${response.status} ${response.statusText}) Загружено ${firstThree.length} публикаций.`, "success");
         }
     } catch (error) {
-        postsList.textContent = `Ошибка загрузки публикаций: ${error.message}`;
+        let code = "";
+        if (error.name === "TimeoutError") {
+            code = "(500)";
+        } else if (error.message.includes("HTTP-ошибка")) {
+            const match = error.message.match(/\d+/);
+            if (match) {
+                code = `(${match[0]})`;
+            }
+        } else {
+            code = "(500)";
+        }
+        showMessage(`Ошибка загрузки публикаций: ${code} ${error.message}`, "error");
     }
 }
 
